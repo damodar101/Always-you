@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mero Mutu ♡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--pink:#ff8fc4;--soft:#ffd2e7;--white:#fff7fc}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;font-family:'DM Sans',sans-serif;color:var(--white);overflow:hidden}
+body{background:radial-gradient(ellipse at 50% 45%,#382044 0%,#180f29 48%,#080711 100%)}
+#stars,.floating-layer{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.star{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;opacity:.55;animation:twinkle 3s infinite ease-in-out}
+@keyframes twinkle{50%{opacity:.12;transform:scale(.5)}}
+.floating-heart{position:absolute;bottom:-30px;color:#ff8fc4;opacity:0;animation:floatUp 8s linear forwards;text-shadow:0 0 14px #ff4fa4}
+@keyframes floatUp{10%{opacity:.7}100%{transform:translateY(-110vh) rotate(25deg);opacity:0}}
+.screen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:22px;transition:opacity .9s ease,visibility .9s ease}
+.hidden{opacity:0;visibility:hidden;pointer-events:none}
+#intro{z-index:2;flex-direction:column;text-align:center}
+.eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#eebbd7}
+h1{font-family:'Playfair Display',serif;font-weight:600}
+.intro-title{font-size:clamp(42px,9vw,76px);margin:10px 0;color:#ffd3e8;text-shadow:0 0 35px #ff62ac55}
+.intro-copy{max-width:480px;line-height:1.8;color:#e8cfe1;font-size:14px}
+.heart-button{position:relative;border:0;background:transparent;cursor:pointer;margin:26px 0 18px;width:150px;height:150px;display:grid;place-items:center}
+.big-heart{font-size:82px;filter:drop-shadow(0 0 18px #ff4fa4);animation:heartbeat 1.5s infinite}
+.orbit{position:absolute;inset:8px;border:1px solid #ffacd455;border-radius:50%;animation:spin 12s linear infinite}
+.orbit:before{content:'✦';position:absolute;top:8px;left:20px;color:#ffd6e9}
+.orbit.two{inset:-7px;animation-direction:reverse;animation-duration:18s;border-color:#c9a8ff44}
+@keyframes heartbeat{50%{transform:scale(1.13)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hint{font-size:13px;color:#f3c5df;line-height:1.8}
+#loveScreen{z-index:3;overflow:auto}
+.love-card{width:min(620px,100%);max-height:85vh;overflow:auto;padding:clamp(25px,5vw,48px);border:1px solid #ffffff24;border-radius:28px;background:linear-gradient(145deg,#ffffff12,#ffffff06);box-shadow:0 20px 80px #0007, inset 0 1px #ffffff20;backdrop-filter:blur(18px);text-align:center}
+.card-label{font-size:11px;letter-spacing:3px;color:#ffb4d5;text-transform:uppercase}
+.card-title{font-size:clamp(35px,7vw,52px);color:#ffd4e8;margin:12px 0 22px}
+.love-message{font-size:15px;line-height:2;color:#f4dfed;text-align:left}
+.question{font-family:'Playfair Display',serif;font-size:clamp(22px,4vw,30px);line-height:1.5;color:#ffd2e7;margin:25px 0 20px}
+.actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{border:1px solid #ffb2d4;border-radius:999px;padding:13px 22px;font:600 14px 'DM Sans';cursor:pointer;transition:.25s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 8px 25px #ff4fa455}
+.primary{background:linear-gradient(120deg,#ff8fc4,#e85caa);color:#281025;border:0}
+.secondary{background:#ffffff0c;color:#ffe5f1}
+.answer{min-height:52px;margin-top:18px;color:#ffd1e6;line-height:1.7}
+.music{position:fixed;z-index:10;bottom:17px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:12px;padding:9px 13px 9px 16px;border:1px solid #ffffff28;border-radius:999px;background:#160e25bb;backdrop-filter:blur(14px);font-size:12px;color:#f7d8e9;white-space:nowrap}
+.music button{border:0;border-radius:999px;padding:8px 13px;background:#ffacd2;color:#35152b;font-weight:700;cursor:pointer}
+#surpriseScreen{z-index:8;flex-direction:column;text-align:center;background:radial-gradient(ellipse at center,#481b42,#190d27 60%,#080711);padding:18px}
+.surprise-title{font-size:clamp(34px,7vw,58px);color:#ffb5d8;text-shadow:0 0 25px #ff4da6;margin:0 0 6px}
+.surprise-subtitle{font-size:13px;color:#e8c4dc;margin:0}
+#wordCanvas{width:min(900px,96vw);height:min(390px,48vh);display:block;margin:5px 0}
+.surprise-message{font-family:'Playfair Display',serif;font-size:clamp(17px,3vw,24px);line-height:1.6;color:#f7cfe3;margin:0;opacity:0;animation:appear 1.5s ease 4.5s forwards}
+@keyframes appear{to{opacity:1;transform:translateY(0)}from{opacity:0;transform:translateY(12px)}}
+@media(max-width:520px){.love-card{padding:25px 20px}.love-message{font-size:14px}.music{bottom:10px}.surprise-subtitle{font-size:12px}#wordCanvas{height:38vh}}
+</style>
+</head>
+<body>
+<div id="stars"></div><div class="floating-layer" id="floatingLayer"></div>
+
+<section id="intro" class="screen">
+  <div class="eyebrow">A little universe made for you</div>
+  <h1 class="intro-title">Mero Mutu ♡</h1>
+  <p class="intro-copy">Somewhere between a million stars, my heart found its favourite person.</p>
+  <button class="heart-button" onclick="openHeart()" aria-label="Open the surprise">
+    <span class="orbit"></span><span class="orbit two"></span><span class="big-heart">❤️</span>
+  </button>
+  <div class="hint">✨ A little surprise is waiting inside...<br>Touch my heart gently to discover it 💗</div>
+</section>
+
+<section id="loveScreen" class="screen hidden">
+  <div class="love-card">
+    <div class="card-label">A message from my heart</div>
+    <h1 class="card-title">For Alu 💗</h1>
+    <div class="love-message">
+      You have become someone really special to me. Your presence makes ordinary moments feel beautiful, and even the smallest conversations with you become memories I want to keep.<br><br>
+      I don't promise a perfect story, but I would love to write a beautiful one with you.<br><br>
+      If I could choose one person in this endless universe, my heart would find its way back to you.<br><br>
+      I love you, Mero Mutu. ❤️
+    </div>
+    <div class="question">So, Mero Mutu... If my heart has already chosen you, would you let me be yours? Will you be mine? 💗</div>
+    <div class="actions">
+      <button class="btn primary" onclick="sayYes()">Yes, forever! ❤️</button>
+      <button class="btn secondary" onclick="sayHug()">Let me hug you first 🥺</button>
+    </div>
+    <div class="answer" id="answer" aria-live="polite"></div>
+  </div>
+</section>
+
+<section id="surpriseScreen" class="screen hidden">
+  <h1 class="surprise-title">A Little Surprise 💗</h1>
+  <p class="surprise-subtitle">Every little heart has something to tell you...</p>
+  <canvas id="wordCanvas"></canvas>
+  <p class="surprise-message">You are my favourite part of this universe,<br>Mero Mutu. Forever and always. 💗</p>
+</section>
+
+<div class="music">
+  <span id="musicStatus">♪ Your song is waiting</span>
+  <button id="musicToggle" onclick="toggleMusic()">Music On ♫</button>
+</div>
+<audio id="loveMusic" loop preload="auto"><source src="song.mp3" type="audio/mpeg"></audio>
+
+<script>
+const $ = id => document.getElementById(id);
+const audio = $('loveMusic');
+let musicStarted = false, surpriseStarted = false;
+
+function makeStars(){
+  const wrap=$('stars');
+  for(let i=0;i<95;i++){
+    const s=document.createElement('i');s.className='star';
+    s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';
+    s.style.animationDelay=Math.random()*4+'s';s.style.opacity=.15+Math.random()*.65;
+    wrap.appendChild(s);
+  }
+}
+function floatingHearts(count=12){
+  for(let i=0;i<count;i++){
+    setTimeout(()=>{
+      const h=document.createElement('span');h.className='floating-heart';
+      h.textContent=['♥','💗','♡','💕'][Math.floor(Math.random()*4)];
+      h.style.left=Math.random()*100+'%';h.style.fontSize=(12+Math.random()*20)+'px';
+      h.style.animationDuration=(5+Math.random()*5)+'s';
+      $('floatingLayer').appendChild(h);setTimeout(()=>h.remove(),10500);
+    },i*100);
+  }
+}
+function playMusic(){
+  audio.play().then(()=>{musicStarted=true;$('musicStatus').textContent='♪ Now playing';$('musicToggle').textContent='Music Off ♫';})
+  .catch(()=>{$('musicStatus').textContent='♪ Tap Music On to play';});
+}
+function toggleMusic(){
+  if(audio.paused){playMusic();}
+  else{audio.pause();$('musicStatus').textContent='♪ Music paused';$('musicToggle').textContent='Music On ♫';}
+}
+function openHeart(){
+  playMusic();$('intro').classList.add('hidden');$('loveScreen').classList.remove('hidden');floatingHearts(18);
+}
+function sayHug(){
+  $('answer').innerHTML='Come here, Alu! 🥺💕 One hug, a thousand kisses, and endless love.';
+  floatingHearts(24);
+}
+function sayYes(){
+  $('answer').innerHTML='You just made my universe complete. ❤️<br>I choose you, today and every tomorrow. 💍';
+  floatingHearts(35);
+  setTimeout(showSurprise,2200);
+}
+function showSurprise(){
+  if(surpriseStarted)return;surpriseStarted=true;
+  $('loveScreen').classList.add('hidden');$('surpriseScreen').classList.remove('hidden');
+  drawLoveParticles();
+}
+function drawLoveParticles(){
+  const canvas=$('wordCanvas'),ctx=canvas.getContext('2d');
+  const rect=canvas.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2);
+  canvas.width=rect.width*dpr;canvas.height=rect.height*dpr;
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  const w=rect.width,h=rect.height;
+  // Sample the phrase from an offscreen canvas, then let falling heart-shaped particles assemble into it.
+  const off=document.createElement('canvas');off.width=Math.floor(w);off.height=Math.floor(h);
+  const o=off.getContext('2d');
+  let fontSize=Math.min(w/8.8,h*.28,94);
+  o.fillStyle='#fff';o.textAlign='center';o.textBaseline='middle';
+  o.font=`700 ${fontSize}px "DM Sans", Arial`;
+  o.fillText('I LOVE YOU ALU',w/2,h*.53);
+  let pixels=o.getImageData(0,0,off.width,off.height).data,targets=[];
+  const step=Math.max(3,Math.floor(w/210));
+  for(let y=0;y<off.height;y+=step)for(let x=0;x<off.width;x+=step){
+    if(pixels[(y*off.width+x)*4+3]>100)targets.push({x,y});
+  }
+  // Keep particle count manageable while preserving the letter shapes.
+  const max=850;
+  if(targets.length>max){const reduced=[];for(let i=0;i<max;i++)reduced.push(targets[Math.floor(i*targets.length/max)]);targets=reduced;}
+  const particles=targets.map((t,i)=>({tx:t.x,ty:t.y,x:Math.random()*w,y:-Math.random()*h-h,delay:Math.random()*1500,size:2.1+Math.random()*1.8,phase:Math.random()*6.28}));
+  const start=performance.now();
+  function frame(now){
+    ctx.clearRect(0,0,w,h);
+    const elapsed=now-start;
+    particles.forEach(p=>{
+      const progress=Math.max(0,Math.min(1,(elapsed-p.delay)/2600));
+      const ease=1-Math.pow(1-progress,3);
+      const x=p.x+(p.tx-p.x)*ease+Math.sin(elapsed*.002+p.phase)*(1-progress)*18;
+      const y=p.y+(p.ty-p.y)*ease;
+      ctx.save();ctx.globalAlpha=.25+.75*progress;
+      ctx.font=`${p.size*3.2}px Arial`;ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.shadowBlur=10;ctx.shadowColor='#ff5ca8';ctx.fillStyle=['#ff8fc4','#ffd1e5','#ff5ca8','#fff0f7'][Math.floor(p.phase)%4];
+      ctx.fillText('♥',x,y);ctx.restore();
+    });
+    if(elapsed<9000)requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+makeStars();
+window.addEventListener('resize',()=>{if(surpriseStarted){const c=$('wordCanvas');c.getContext('2d').clearRect(0,0,c.width,c.height);drawLoveParticles();}});
+</script>
+</body>
+</html>
